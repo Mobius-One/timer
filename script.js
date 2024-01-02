@@ -1,9 +1,9 @@
 let user = ""
 const cmds = [
-    { "cmd": ["!lurk\r\n"], "res": ["Ok @${user}, have a good lurk!", "Enjoy lurking @${user}!", "Got it @${user}! Lurk away!"] },
-    { "cmd": ["!unlurk\r\n"], "res": ["Welcome back @${user}!", "Glad your back @${user}!", "@${user}, lurk mode deactivated!"] },
+    { "cmd": ["!lurk\r\n"], "res": ["Ok @||user||, have a good lurk!", "Enjoy lurking @||user||!", "Got it @||user||! Lurk away!"] },
+    { "cmd": ["!unlurk\r\n"], "res": ["Welcome back @||user||", "Glad your back @||user||!", "@||user||, lurk mode deactivated!"] },
     { "cmd": ["!scene\r\n", "!scenes\r\n"], "res": [`Hey @${localStorage.getItem('cName')}! Change the scene back to the game!`] },
-    { "cmd": ["!mods\r\n", "!mod\r\n"], "res": [`@${user}, I have no idea what mods ${localStorage.getItem('cName')} is using, but it's a lot.`] }
+    { "cmd": ["!mods\r\n", "!mod\r\n"], "res": [`@||user||, I have no idea what mods ${localStorage.getItem('cName')} is using, but it's a lot.`] }
 ];
 
 //Get a random response for the user
@@ -28,7 +28,7 @@ function getRandomResponse(cmd, user, cName) {
                         const streamCategory = data.data[0].game_name;
                         if (streamCategory === "Euro Truck Simulator 2") {
                             const randomIndex = Math.floor(Math.random() * cmds[i].res.length);
-                            return cmds[i].res[randomIndex].replace('${user}', user);
+                            return cmds[i].res[randomIndex].replace('||user||', user);
                         }
                     }
                   })
@@ -40,8 +40,8 @@ function getRandomResponse(cmd, user, cName) {
 
             // Randomly select a response
             const randomIndex = Math.floor(Math.random() * cmds[i].res.length);
-            // Replace ${user} with the provided user parameter
-            return cmds[i].res[randomIndex].replace('${user}', user);
+            // Replace ||user|| with the provided user parameter
+            return cmds[i].res[randomIndex].replace('||user||', user);
         }
     }
     // Return an empty string if no matches found
