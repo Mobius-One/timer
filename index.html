@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokewatcher</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js"></script>
+    <script src="timerscript.js"></script>
+</head>
+
+<body>
+    <h1 style="top: 0; left: 0;" id="countdown"> </h1>
+
+    <form action="#" method="post">
+        <div>
+            <input type="text" id="channelName" name="channelName" placeholder="Enter channel name" required>
+            <input type="text" id="accessToken" name="accessToken" placeholder="Enter access token" required>
+        </div>
+
+        </div>
+        <button type="submit">Run bot</button>
+        <button id="wipe">Wipe</button>
+        <div id="statusIndicator" class="indicator"></div>
+    </form>
+</body>
+
+</html>
