@@ -2,15 +2,42 @@ let user = ""
 const cmds = [
     { "cmd": ["!lurk\r\n"], "res": ["Ok @${user}, have a good lurk!", "Enjoy lurking @${user}!", "Got it @${user}! Lurk away!"] },
     { "cmd": ["!unlurk\r\n"], "res": ["Welcome back @${user}!", "Glad your back @${user}!", "@${user}, lurk mode deactivated!"] },
-    { "cmd": ["!scene\r\n", "!scenes\r\n"], "res": [`Hey @${localStorage.getItem('cName')}! Change the scene back to the game!`] }
+    { "cmd": ["!scene\r\n", "!scenes\r\n"], "res": [`Hey @${localStorage.getItem('cName')}! Change the scene back to the game!`] },
+    { "cmd": ["!mods\r\n", "!mod\r\n"], "res": [`@${user}, I have no idea what mods ${localStorage.getItem('cName')} is using, but it's a lot.`] }
 ];
 
 //Get a random response for the user
-function getRandomResponse(cmd, user) {
+function getRandomResponse(cmd, user, cName) {
     // Iterate over the cmds array
     for (let i = 0; i < cmds.length; i++) {
         // Check if cmd exists in the cmd property of each object
         if (cmds[i].cmd.includes(cmd)) {
+            //Check if category is euro truck
+            if ((cmd === "!mods\r\n" || cmd === "!mod\r\n")) {
+                const url = `https://api.twitch.tv/helix/streams?user_login=${cName}`;
+                fetch(url, {
+                    method: 'GET',
+                    headers: {
+                      'Client-ID': 'zc1vjuxzqm44u7d1kcn1rwaamodaio',
+                      'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                    if (data.data && data.data.length > 0) {
+                        const streamCategory = data.data[0].game_name;
+                        if (streamCategory === "Euro Truck Simulator 2") {
+                            const randomIndex = Math.floor(Math.random() * cmds[i].res.length);
+                            return cmds[i].res[randomIndex].replace('${user}', user);
+                        }
+                    }
+                  })
+                  .catch(error => {
+                    return ""
+                  });
+                return ""
+            }
+
             // Randomly select a response
             const randomIndex = Math.floor(Math.random() * cmds[i].res.length);
             // Replace ${user} with the provided user parameter
@@ -30,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     function connectWebSocket() {
         token = localStorage.getItem('token');
-        cName = localStorage.getItem('cName');
+        cName = localStorage.getItem('cName');  
 
         if (cName == null || token == null) {
             console.log("No username or token found. Returning...");
@@ -98,7 +125,7 @@ document.addEventListener('DOMContentLoaded', function () {
                     if (parts.length > 1) {
                         user = user_parts[0];
                     }
-                    const response = getRandomResponse(userMessage, user)
+                    const response = getRandomResponse(userMessage, user, cName)
                     if (response === "") {
                         return
                     }
@@ -144,6 +171,7 @@ document.addEventListener('DOMContentLoaded', function () {
         form.reset();
         displayIndicator();
     });
+
 });
 
 function playAudio(audioFile) {
