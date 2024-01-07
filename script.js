@@ -3,7 +3,7 @@ const cmds = [
     { "cmd": ["!lurk\r\n"], "res": ["Ok @||user||, have a good lurk!", "Enjoy lurking @||user||!", "Got it @||user||! Lurk away!"] },
     { "cmd": ["!unlurk\r\n"], "res": ["Welcome back @||user||", "Glad your back @||user||!", "@||user||, lurk mode deactivated!"] },
     { "cmd": ["!scene\r\n", "!scenes\r\n"], "res": [`Hey @${localStorage.getItem('cName')}! Change the scene back to the game!`] },
-    ( "cmd": ["!muted\r\n", "!unmute\r\n"], "res": [`Hey @${localStorage.getItem('cName')}, you're muted!!`] },
+    { "cmd": ["!muted\r\n", "!unmute\r\n"], "res": [`Hey @${localStorage.getItem('cName')}, you're muted!!`] },
     { "cmd": ["!mods\r\n", "!mod\r\n"], "res": [`@||user||, there are almost 200 total mods installed. They focus on Reworking the official SCS in-game trucks, sounds, physics, as well as replacing every fake company with real life companies. GPS, Activation icons, Weather mods, traffic density and behavior, and Traffic and Trailer packs are also added in. I have tested these extensively so they don't conflict. Game crashes are rare. Some mods are swapped in and out as needed.`] }
 ];
 
